@@ -103,17 +103,17 @@ def configure_logging(log_level=LOG_LEVEL):
     console_handler = logging.StreamHandler()
     console_handler.setLevel(log_level)
     console_handler.setFormatter(ColorLevelFormatter())
-
-    # File Handler with detailed messages
-    file_handler = RotatingFileHandler(
-        "logs/logs.log", maxBytes=5 * 1024 * 1024, backupCount=3
-    )
-    file_handler.setLevel(15)
-    file_handler.setFormatter(DetailedFormatter())
-
-    # Add handlers to the logger
     root_logger.addHandler(console_handler)
-    root_logger.addHandler(file_handler)
+
+    # # Uncomment the following lines to enable file logging
+    # # File Handler with detailed messages
+    # # Rotates logs when they reach 5MB and keeps 3 backups
+    # file_handler = RotatingFileHandler(
+    #     "logs/logs.log", maxBytes=5 * 1024 * 1024, backupCount=3
+    # )
+    # file_handler.setLevel(15)
+    # file_handler.setFormatter(DetailedFormatter())
+    # root_logger.addHandler(file_handler)
 
 
 # Call the function to configure logging when module is imported
