@@ -15,7 +15,7 @@ import logging
 from logs import logger
 logger.configure_logging()
 log = logging.getLogger(__name__)
-log.setLevel(LOG_LEVEL)
+logger.configure_logging(log_level=LOG_LEVEL)
 
 
 class SeleniumHelper:

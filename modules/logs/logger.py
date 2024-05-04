@@ -94,27 +94,26 @@ LOG_LEVEL = 15
 
 
 # Function to configure logging
-def configure_logging(log_level=LOG_LEVEL, keep_logs=False):
-    # Configure Logging
-    root_logger = logging.getLogger()
-    root_logger.setLevel(LOG_LEVEL)
+def configure_logging(logger_name="root", log_level=LOG_LEVEL, keep_logs=False):
+    # print(f"Configuring Logging: {logger_name}")
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(log_level)
+    # Check if handlers already exist to prevent duplication
+    if not logger.handlers:
+        # Console Handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(log_level)
+        console_handler.setFormatter(ColorLevelFormatter())
+        logger.addHandler(console_handler)
 
-    # Console Handler
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(log_level)
-    console_handler.setFormatter(ColorLevelFormatter())
-    root_logger.addHandler(console_handler)
+        if keep_logs:
+            # File Handler with detailed messages
+            file_handler = RotatingFileHandler(
+                "logs/logs.log", maxBytes=5 * 1024 * 1024, backupCount=3
+            )
+            file_handler.setLevel(log_level)
+            file_handler.setFormatter(DetailedFormatter())
+            logger.addHandler(file_handler)
 
-    if keep_logs:
-        # File Handler with detailed messages
-        # Rotates logs when they reach 5MB and keeps 3 backups
-        file_handler = RotatingFileHandler(
-            "logs/logs.log", maxBytes=5 * 1024 * 1024, backupCount=3
-        )
-        file_handler.setLevel(15)
-        file_handler.setFormatter(DetailedFormatter())
-        root_logger.addHandler(file_handler)
-
-# Call the function to configure logging when module is imported
-# This needs to be called by every file that imports this module to set it up
-# configure_logging()
+    # Prevent logging from propagating to the root logger
+    logger.propagate = False

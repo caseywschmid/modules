@@ -61,7 +61,7 @@ parsed HTML.
 #### Configuration
 
 The logging configuration is set up when the module is imported, but can be
-reconfigured dynamically if needed.
+reconfigured dynamically if needed. 
 
 ##### Default Configuration
 
@@ -94,16 +94,17 @@ particular file by running `configure_logging(keep_files=True)`.
 
 Best practice is to set some kind of constant in your main file to set the log
 level. This way you can easily change the log level for all files by changing
-the constant in one place. To use the configured logger in your Python files: 
+the constant in one place. Files though can be set to a custom log level if you
+choose. To use the configured logger in your Python files: 
 
 ```python
-python
 from constants import LOG_LEVEL
+# setup logging
 import logging
-from modules.logs.logger import configure_logging
+from modules.logs import logger
 
+logger.configure_logging(__name__, log_level=LOG_LEVEL)
 log = logging.getLogger(__name__)
-configure_logging(log_level=LOG_LEVEL, keep_logs=False)
 
 log.debug("This is a debug message")
 log.fine("This is a fine message")
