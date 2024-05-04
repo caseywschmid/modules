@@ -2,9 +2,6 @@
 
 ## Usage
 
-To use this package, ensure you have your GitHub CLI configured for the GitHub
-account `caseywschmid`.
-
 Install the package directly from GitHub:
 
 `pip install git+https://github.com/caseywschmid/modules.git`
