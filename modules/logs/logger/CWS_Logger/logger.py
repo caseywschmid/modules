@@ -29,21 +29,21 @@ logging.Logger.fine = fine
 
 
 # ------------------------------------------------------
-#              Define the MILESTONE level
+#              Define the STEP level
 # ------------------------------------------------------
 """
-MILESTONE is a custom log level that is between INFO and WARNING
+STEP is a custom log level that is between INFO and WARNING
 """
-MILESTONE_LEVEL = 25
-logging.addLevelName(MILESTONE_LEVEL, "MILESTONE")
+STEP_LEVEL = 25
+logging.addLevelName(STEP_LEVEL, "STEP")
 
 
-def milestone(self, message, *args, **kwargs):
-    if self.isEnabledFor(MILESTONE_LEVEL):
-        self._log(MILESTONE_LEVEL, message, args, **kwargs)
+def step(self, message, *args, **kwargs):
+    if self.isEnabledFor(STEP_LEVEL):
+        self._log(STEP_LEVEL, message, args, **kwargs)
 
 
-logging.Logger.milestone = milestone
+logging.Logger.step = step
 
 
 # ------------------------------------------------------
@@ -54,7 +54,7 @@ class ColorLevelFormatter(logging.Formatter):
         logging.DEBUG: "\x1b[38;21mDEBUG\x1b[0m:\t  %(message)s",  # Grey Level
         FINE_LEVEL: "\x1b[34mFINE\x1b[0m:\t  %(message)s",  # Blue Level
         logging.INFO: "\x1b[32mINFO\x1b[0m:\t  %(message)s",  # Green Level
-        MILESTONE_LEVEL: "\x1b[35mMILESTONE\x1b[0m:\t  \x1b[35m%(message)s\x1b[0m",  # Purple Level and Message
+        STEP_LEVEL: "\x1b[35mSTEP\x1b[0m:\t  \x1b[35m%(message)s\x1b[0m",  # Purple Level and Message
         logging.WARNING: "\x1b[33mWARNING\x1b[0m:  %(message)s",  # Yellow Level
         logging.ERROR: "\x1b[31mERROR\x1b[0m:\t  %(message)s",  # Red Level
         logging.CRITICAL: "\x1b[31;1mCRITICAL\x1b[0m: %(message)s",  # Bold Red Level
@@ -83,21 +83,17 @@ class DetailedFormatter(logging.Formatter):
         return super().format(record)
 
 
-# =======================================================
+# ===============
 # Logging
 # --------------
 # DEBUG: 10
 # FINE: 15
 # INFO: 20
-# MILESTONE: 25
+# STEP: 25
 # WARNING: 30
 # ERROR: 40
 # CRITICAL: 50
-# =======================================================
-
-# Look for a LOG_LEVEL environment variable to set the log level
-LOG_LEVEL = int(os.getenv("LOG_LEVEL", 15))
-
+# ===============
 
 # Function to configure logging
 def configure_logging(logger_name="root", keep_logs=False):
@@ -116,7 +112,6 @@ def configure_logging(logger_name="root", keep_logs=False):
     # Dynamically read the environment variable
     default_log_level = 15  # Default level if LOG_LEVEL is not set
     log_level = int(os.getenv("LOG_LEVEL", default_log_level))
-    # print(f"Configuring Logging: {logger_name}")
     logger = logging.getLogger(logger_name)
     logger.setLevel(log_level)
     # Check if handlers already exist to prevent duplication
