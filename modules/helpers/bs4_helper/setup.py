@@ -8,7 +8,6 @@ setup(
     author_email="caseywschmid@gmail.com",
     url="https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/bs4_helper",
     install_requires=[
-        "https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger",
         "beautifulsoup4",
         "requests",
         # add other dependencies as needed

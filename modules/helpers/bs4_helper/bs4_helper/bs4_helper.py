@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 # ------ CONFIGURE LOGGING ------
 import logging
-from ....logs import logger
+from logger import logger
 
 logger.configure_logging(__name__, log_level=15)
 log = logging.getLogger(__name__)
