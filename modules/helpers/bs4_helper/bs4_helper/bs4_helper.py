@@ -15,18 +15,17 @@ import logging
 try:
     if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
         from modules.logs.logger.logger import logger
-except:
-    try:
+    else:
         from logger import logger
-    except ModuleNotFoundError:
-        raise ModuleNotFoundError(
-            "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
-        )
+except ModuleNotFoundError:
+    raise ModuleNotFoundError(
+        "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
+    )
 
 logger.configure_logging(__name__, log_level=15)
 log = logging.getLogger(__name__)
 
-if os.getenv("BS4_HELPER_PACKAGE_TEST", "True").lower() in ("true", "1", "t"):
+if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
     log.info("Running in test mode.")
 
 class BS4Helper:
