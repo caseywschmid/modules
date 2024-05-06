@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="modules",
-    version="0.1",
+    name="Logger",
+    version="0.0.1",
     packages=find_packages(),
     author="Casey Schmid",
     author_email="caseywschmid@gmail.com",
