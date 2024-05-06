@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import logging
 
 try:
-    if os.getenv("BS4_HELPER_PACKAGE_TEST", "True").lower() in ("true", "1", "t"):
+    if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
         from modules.logs.logger.logger import logger
 except:
     try:
