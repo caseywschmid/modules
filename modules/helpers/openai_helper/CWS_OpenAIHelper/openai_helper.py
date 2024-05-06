@@ -10,7 +10,7 @@ try:
         from modules.logs.logger.CWS_Logger import logger
     else:
         # if running the code as an imported package in another project
-        from CWS_Logger import logger
+        from CWS_Logger import logger  # type: ignore
 except ModuleNotFoundError:
     raise ModuleNotFoundError(
         "The necessary 'Logger' module is not installed. Please install it by running \n'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"

@@ -4,7 +4,7 @@
 ## BS4 Helper
 
 [0.0.1] - 2024-05-06
-Initial release of BS4AIHelper class.
+Initial release of BS4Helper class.
 
 ## Open AI Helper
 
@@ -14,7 +14,7 @@ Initial release of OpenAIHelper class.
 ## Selenium Helper
 
 [0.0.1] - 2024-05-06
-Initial release of OpenAIHelper class.
+Initial release of SeleniumHelper class.
 
 # Logs
 
