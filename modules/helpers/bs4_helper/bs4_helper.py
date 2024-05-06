@@ -13,9 +13,11 @@ from bs4 import BeautifulSoup
 import logging
 
 try:
+    # if running the code from the package itself
     if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
         from modules.logs.logger import logger
     else:
+        # if running the code as an imported package in another project
         from logger import logger
 except ModuleNotFoundError:
     raise ModuleNotFoundError(
