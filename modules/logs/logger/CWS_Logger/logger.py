@@ -1,3 +1,4 @@
+import os
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -90,11 +91,25 @@ class DetailedFormatter(logging.Formatter):
 # ERROR: 40
 # CRITICAL: 50
 # =======================================================
-LOG_LEVEL = 15
+
+# Look for a LOG_LEVEL environment variable to set the log level
+LOG_LEVEL = int(os.getenv("LOG_LEVEL", 15))
 
 
 # Function to configure logging
 def configure_logging(logger_name="root", log_level=LOG_LEVEL, keep_logs=False):
+    """
+    Configures the logging for the application.
+
+    Args:
+        logger_name (str, optional): The name of the logger to be configured.
+        Defaults to "root".
+        log_level (int, optional): The level of logging to be used. Defaults to
+        LOG_LEVEL.
+        keep_logs (bool, optional): If set to True, logs will be kept in a file.
+        Defaults to False.
+
+    """
     # print(f"Configuring Logging: {logger_name}")
     logger = logging.getLogger(logger_name)
     logger.setLevel(log_level)

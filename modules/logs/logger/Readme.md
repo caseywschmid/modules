@@ -64,12 +64,12 @@ the constant in one place. Files though can be set to a custom log level if you
 choose. To use the configured logger in your Python files:
 
 ```python
-from constants import LOG_LEVEL
-# setup logging
 import logging
 from modules.logs import logger
 
-logger.configure_logging(__name__, log_level=LOG_LEVEL)
+# you can set an environment variable to change the log level
+# LOG_LEVEL = 15
+logger.configure_logging(__name__, log_level=LOG_LEVEL, keep_files=True)
 log = logging.getLogger(__name__)
 
 log.debug("This is a debug message")

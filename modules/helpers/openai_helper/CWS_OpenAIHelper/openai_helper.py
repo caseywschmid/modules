@@ -1,25 +1,27 @@
-"""
-This is a helper module for interacting with the OpenAI API.
-I made this to simplify the process of creating chat completions.
-I kept all the functionality currently in the OpenAI module.
+import os
+from importlib.metadata import version
 
-oaih = OpenAIHelper()
-# Get the related Documentation URLs
-# Extract the keys from the AUTOGEN_DOC_URLS dictionary
-doc_keys = AUTOGEN_DOC_URLS.keys()
-prompt = "Look at the following list of AutoGen documentation sections
-and choose the ones that best matches the query. Return a JSON object with this format
-{{ "related_docs": ["doc_key1", "doc_key2", ...] }}
-(add as many as you think would apply): 
-Query: {query} Documentation Sections: {doc_keys}
-".format(
-    query=query, doc_keys=doc_keys
-)
-docs = oaih.create_chat_completion(
-    prompt=prompt,
-    json_mode=True
-)
-"""
+# ------ CONFIGURE LOGGING ------
+import logging
+
+try:
+    # if running the code from the package itself
+    if os.getenv("OPENAI_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
+        from modules.logs.logger.CWS_Logger import logger
+    else:
+        # if running the code as an imported package in another project
+        from CWS_Logger import logger
+except ModuleNotFoundError:
+    raise ModuleNotFoundError(
+        "The necessary 'Logger' module is not installed. Please install it by running \n'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
+    )
+
+logger.configure_logging(__name__, log_level=15)
+log = logging.getLogger(__name__)
+
+if os.getenv("OPENAI_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
+    log.info("Running in test mode.")
+
 import json
 from openai import OpenAI
 from typing import List, Optional, Annotated, Dict, Any, Union, Iterable
@@ -49,6 +51,7 @@ from openai.types.chat.chat_completion_content_part_image_param import (
 )
 from openai._types import NotGiven, NOT_GIVEN
 
+OPENAI_VERSION = "1.25.1"
 
 class OpenAIHelper:
 
@@ -58,6 +61,24 @@ class OpenAIHelper:
         organization: str,
     ):
         self.client = OpenAI(api_key=api_key, organization=organization)
+        self.check_dependency_versions()
+
+    def check_dependency_versions(self):
+        current_openai_version = version("openai")
+        # Check if the warning should be muted
+        mute_warning = os.getenv("MUTE_OPENAI_HELPER_WARNING", "False").lower() in (
+            "true",
+            "1",
+            "t",
+        )
+
+        if not mute_warning and current_openai_version != OPENAI_VERSION:
+            log.warning(
+                f"The 'OpenAIHelper' tool was created using openai version {OPENAI_VERSION}. The version you have installed in this project ({current_openai_version}) may not be compatible with this tool. If you encounter any issues, either downgrade your BeautifulSoup version to 4.12.3 or email the creator at caseywschmid@gmail.com to have the package updated."
+            )
+            log.info(
+                "This warning can be muted by setting the MUTE_OPENAI_HELPER_WARNING environment variable to 'True'."
+            )
 
     def create_chat_completion(
         self,
@@ -101,7 +122,20 @@ class OpenAIHelper:
 
         Parameters
         ----------
-         - model: ID of the model to use. See the
+         - prompt: The text prompt to send to the chat completion API.
+
+         - images : A list of local image paths. These images will be encoded to
+           base64 and included in the chat completion request.
+
+         - system_message: An optional system message to include in the chat
+           completion request. Defaults to None.
+
+         - json_mode : bool, optional If True, the response from the OpenAI API
+           will be returned as a JSON object. Defaults to False. If you set this
+            to True, you must also tell the LLM to output JSON as its response
+            in the prompt or system message.
+
+         - model: ID of the model to use. Defaults to "gpt-4-turbo".
 
          - stream: If set, partial message deltas will be sent, like in ChatGPT.
            Tokens will be sent as data-only [server-sent
@@ -209,17 +243,13 @@ class OpenAIHelper:
          - timeout: Override the client-level default timeout for this request,
            in seconds
 
-         - prompt: The text prompt to send to the chat completion API.
-         - images : A list of local image paths. These images will be encoded to base64 and included in the chat completion request.
-         - system_message: An optional system message to include in the chat completion request. Defaults to None.
-         - json_mode : bool, optional If True, the response from the OpenAI API will be returned as a JSON object. Defaults to False.
-
         Returns
         -------
         dict or str
             The response from the OpenAI API. Returns a dictionary if json_mode
             is True, otherwise returns a string.
         """
+        log.fine("OpenAIHelper.create_chat_completion")
         completion_params = {
             "messages": None,
             "model": model,
