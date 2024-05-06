@@ -12,10 +12,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from constants.settings import LOG_LEVEL
 
 import logging
-from logs import logger
-logger.configure_logging()
+from ..logs import logger
+
+logger.configure_logging(__name__, log_level=LOG_LEVEL)
 log = logging.getLogger(__name__)
-logger.configure_logging(log_level=LOG_LEVEL)
 
 
 class SeleniumHelper:
@@ -71,10 +71,12 @@ class SeleniumHelper:
         url: str,
         zoom: Annotated[int, "the zoom level you want to set"] = 100,
         debug: Annotated[bool, "whether to open the browser in debug mode"] = False,
+        window_size: tuple[int, int] = (1300, 2100),
+        window_position: tuple[int, int] = (100, 0)
     ):
         """
         Opens the specified URL in a new Chrome incognito window with optional
-        debug mode and zoom level.
+        debug mode, zoom level, window size, and window position.
 
         Args:
             url (str): The URL to be opened.
@@ -84,6 +86,12 @@ class SeleniumHelper:
             
             debug (bool, optional): If True, opens the browser in debug mode.
             Defaults to False.
+            
+            window_size (tuple[int, int], optional): The size of the browser window
+            as a tuple (width, height). Defaults to (1300, 2100).
+            
+            window_position (tuple[int, int], optional): The position of the browser
+            window as a tuple (x, y). Defaults to (100, 0).
 
         Returns:
             tuple: A tuple containing the WebDriver instance and the
@@ -97,8 +105,8 @@ class SeleniumHelper:
             self.driver = webdriver.Chrome(options=options)
         else:
             self.driver = webdriver.Chrome()
-        self.driver.set_window_size(1300, 2100)
-        self.driver.set_window_position(100, 0)
+        self.driver.set_window_size(*window_size)
+        self.driver.set_window_position(*window_position)
         self.driver.get(url)
         log.info(f"Zoom level: {zoom}%")
         self.driver.execute_script(f"document.body.style.zoom='{zoom}%'")

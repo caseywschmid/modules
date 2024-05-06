@@ -12,6 +12,7 @@ setup(
         "selenium==4.20.0",
         "PyAutoGUI==0.9.54",
         "psutil==5.9.8",
+        "openai==1.25.1",
         # add other dependencies as needed
     ],
     # Add other metadata as needed
