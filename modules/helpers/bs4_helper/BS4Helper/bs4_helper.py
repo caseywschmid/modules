@@ -41,7 +41,7 @@ class BS4Helper:
     def __init__(self):
         self.check_bs4_version()
 
-    def check_bs4_version():
+    def check_bs4_version(self):
         current_bs4_version = version("beautifulsoup4")
         # Check if the warning should be muted
         mute_warning = os.getenv("MUTE_BS4_WARNING", "False").lower() in (
@@ -50,13 +50,12 @@ class BS4Helper:
             "t",
         )
 
-        log.info(f"Installed BeautifulSoup version: {BeautifulSoup.__version__}")
-        if not mute_warning:
+        if not mute_warning and current_bs4_version != "4.12.3":
             log.info(
                 "This warning can be muted by setting the MUTE_BS4_WARNING environment variable to 'True'."
             )
             log.warning(
-                f"The 'bs4_helper' tool was created using Beautiful Soup version 4.12.3. The version you have installed in this project ({current_bs4_version}) may not be compatible with this tool. If you encounter any issues, either downgrade your BeautifulSoup version to 4.12.3 or email the creator at caseywschmid@gmail.com to have the package updated."
+                f"The 'BS4Helper' tool was created using Beautiful Soup version 4.12.3. The version you have installed in this project ({current_bs4_version}) may not be compatible with this tool. If you encounter any issues, either downgrade your BeautifulSoup version to 4.12.3 or email the creator at caseywschmid@gmail.com to have the package updated."
             )
 
     @staticmethod

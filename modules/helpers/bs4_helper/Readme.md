@@ -1,6 +1,16 @@
 # Documentation
 
-## Usage
+## Requirements
+
+This package depends on a custom Logger. To install the Logger package, run the
+following command:
+
+`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger`
+
+Note: You will receive an error if you try to run the BS4Helper without first
+installing the Logger package.
+
+## Installation
 
 Install the package directly from GitHub:
 
@@ -37,3 +47,11 @@ parsed HTML.
     or `None` if no such element is found.
 
 ### Usage
+
+```python
+from BS4Helper.bs4_helper import BS4Helper
+
+bs4_helper = BS4Helper()
+soup = bs4_helper.get_soup("https://www.google.com")
+print(soup.prettify())
+```
