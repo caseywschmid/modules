@@ -4,7 +4,7 @@
 
 Install the package directly from GitHub:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/BS4Helper`
+`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/bs4_helper`
 
 ## BS4Helper Class
 
