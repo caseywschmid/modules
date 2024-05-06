@@ -26,6 +26,7 @@ pyperclip==1.8.2
 PyRect==0.2.0
 PyScreeze==0.1.30
 PySocks==1.7.1
+python-dotenv==1.0.1
 pytweening==1.2.0
 requests==2.31.0
 rubicon-objc==0.4.9

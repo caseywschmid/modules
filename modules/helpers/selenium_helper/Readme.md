@@ -75,3 +75,18 @@ This method captures the HTML of the current page in the browser. If a filename 
 - **Parameters:**
   - `filename` (str, optional): The name of the file where the HTML will be saved. If not provided, the HTML is not saved to a file.
 - **Returns:** The HTML of the current page.
+
+
+### Usage
+
+```python
+from CWS_SeleniumHelper.selenium_helper import SeleniumHelper
+
+sh = SeleniumHelper()
+result = oaih.create_chat_completion(
+    system_message="system message goes here",
+    prompt="prompt goes here",
+    images = ["path/to/image1", "path/to/image2"],
+    json_mode=True
+)
+```

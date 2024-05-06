@@ -1,6 +1,9 @@
 import os
 import logging
 from logging.handlers import RotatingFileHandler
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # Flag to toggle detailed console output
@@ -97,7 +100,7 @@ LOG_LEVEL = int(os.getenv("LOG_LEVEL", 15))
 
 
 # Function to configure logging
-def configure_logging(logger_name="root", log_level=LOG_LEVEL, keep_logs=False):
+def configure_logging(logger_name="root", keep_logs=False):
     """
     Configures the logging for the application.
 
@@ -110,6 +113,9 @@ def configure_logging(logger_name="root", log_level=LOG_LEVEL, keep_logs=False):
         Defaults to False.
 
     """
+    # Dynamically read the environment variable
+    default_log_level = 15  # Default level if LOG_LEVEL is not set
+    log_level = int(os.getenv("LOG_LEVEL", default_log_level))
     # print(f"Configuring Logging: {logger_name}")
     logger = logging.getLogger(logger_name)
     logger.setLevel(log_level)

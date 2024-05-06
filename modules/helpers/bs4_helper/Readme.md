@@ -49,7 +49,7 @@ parsed HTML.
 ### Usage
 
 ```python
-from BS4Helper.bs4_helper import BS4Helper
+from CWS_BS4Helper.bs4_helper import BS4Helper
 
 bs4_helper = BS4Helper()
 soup = bs4_helper.get_soup("https://www.google.com")

@@ -73,7 +73,7 @@ This static method encodes an image to base64.
 ### Usage
 
 ```python
-from OpenAIHelper.openai_helper import OpenAIHelper
+from CWS_OpenAIHelper.openai_helper import OpenAIHelper
 
 oaih = OpenAIHelper()
 result = oaih.create_chat_completion(

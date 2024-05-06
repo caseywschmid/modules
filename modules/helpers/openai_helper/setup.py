@@ -7,6 +7,8 @@ setup(
     author="Casey Schmid",
     author_email="caseywschmid@gmail.com",
     url="https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/openai_helper",
-    install_requires=[],
+    install_requires=[
+        "openai",
+    ],
     # Add other metadata as needed
 )

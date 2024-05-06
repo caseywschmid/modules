@@ -8,7 +8,7 @@ setup(
     author_email="caseywschmid@gmail.com",
     url="https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger",
     install_requires=[
-        "openai",
+        "python-dotenv",
     ],
     # Add other metadata as needed
 )
