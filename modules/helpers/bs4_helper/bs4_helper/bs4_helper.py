@@ -20,7 +20,7 @@ except:
         from logger import logger
     except ModuleNotFoundError:
         raise ModuleNotFoundError(
-            "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/yourusername/your-repository.git#subdirectory=modules/logs/logger'"
+            "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
         )
 
 logger.configure_logging(__name__, log_level=15)
