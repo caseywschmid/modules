@@ -1,11 +1,28 @@
 import os
 import requests
-import pkg_resources
+
+# Use importlib.metadata for Python 3.8 and above
+# Use importlib_metadata for Python 3.7 and below
+try:
+    from importlib.metadata import version
+except ImportError:
+    from importlib_metadata import version
 from bs4 import BeautifulSoup
 
 # ------ CONFIGURE LOGGING ------
 import logging
-from logger import logger
+
+try:
+    if os.getenv("BS4_HELPER_PACKAGE_TEST", "True").lower() in ("true", "1", "t"):
+        print("Testing BS4 Helper package")
+        from modules.logs.logger.logger import logger
+except:
+    try:
+        from logger import logger
+    except ModuleNotFoundError:
+        raise ModuleNotFoundError(
+            "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/yourusername/your-repository.git#subdirectory=modules/logs/logger'"
+        )
 
 logger.configure_logging(__name__, log_level=15)
 log = logging.getLogger(__name__)
@@ -18,11 +35,12 @@ class BS4Helper:
     This class provides methods to fetch HTML from a URL and to find specific
     elements within the HTML.
     """
+
     def __init__(self):
         self.check_bs4_version()
 
     def check_bs4_version():
-        current_bs4_version = pkg_resources.get_distribution("beautifulsoup4").version
+        current_bs4_version = version("beautifulsoup4")
         # Check if the warning should be muted
         mute_warning = os.getenv("MUTE_BS4_WARNING", "False").lower() in (
             "true",
@@ -31,9 +49,7 @@ class BS4Helper:
         )
 
         log.info(f"Installed BeautifulSoup version: {BeautifulSoup.__version__}")
-        if not mute_warning and (
-            BeautifulSoup.__version__ < "4.9.0" or BeautifulSoup.__version__ >= "5.0"
-        ):
+        if not mute_warning:
             log.info(
                 "This warning can be muted by setting the MUTE_BS4_WARNING environment variable to 'True'."
             )
