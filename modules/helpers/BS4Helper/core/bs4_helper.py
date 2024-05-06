@@ -15,13 +15,13 @@ import logging
 try:
     # if running the code from the package itself
     if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
-        from modules.logs.logger import logger
+        from modules.logs.Logger.core import logger
     else:
         # if running the code as an imported package in another project
-        from logger import logger
+        from Logger.core import logger
 except ModuleNotFoundError:
     raise ModuleNotFoundError(
-        "The necessary 'logger' module is not installed. Please install it by running \n\t'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
+        "The necessary 'logger' module is not installed. Please install it by running \n'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/Logger'"
     )
 
 logger.configure_logging(__name__, log_level=15)

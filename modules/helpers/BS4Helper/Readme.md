@@ -4,7 +4,7 @@
 
 Install the package directly from GitHub:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/bs4_helper`
+`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/BS4Helper`
 
 ## BS4Helper Class
 
@@ -35,3 +35,5 @@ parsed HTML.
 - **Returns:**
   - `bs4.element.Tag`: The first `<div>` element with the specified class name,
     or `None` if no such element is found.
+
+### Usage
