@@ -22,12 +22,12 @@ Install the package directly from GitHub:
 pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/selenium_helper
 ```
 
-# Methods
+## Methods
 
-## 
 ```python
 start_coordinate_logging()
 ```
+
 This method logs the current mouse coordinates at specified intervals for a given duration.
 
 - **Parameters:**
@@ -37,19 +37,28 @@ This method logs the current mouse coordinates at specified intervals for a give
     mouse coordinates will be logged. Defaults to 30 seconds.
 - **Returns:** None
 
-## `open_chrome_in_debug()`
+```python
+open_chrome_in_debug()
+```
+
 This method opens a new Chrome window in incognito mode in debug mode.
 
 - **Parameters:** None
 - **Returns:** None
 
-## `open_chrome()`
+```python
+open_chrome()
+```
+
 This method opens a new Chrome window in incognito mode.
 
 - **Parameters:** None
 - **Returns:** None
 
-## `open_url_in_new_chrome_incognito_window()`
+```python
+open_url_in_new_chrome_incognito_window()
+```
+
 This method opens the specified URL in a new Chrome incognito window with optional debug mode, zoom level, window size, and window position.
 
 - **Parameters:**
@@ -58,34 +67,46 @@ This method opens the specified URL in a new Chrome incognito window with option
   - `debug` (bool, optional): If True, opens the browser in debug mode. Defaults to False.
   - `window_size` (tuple[int, int], optional): The size of the browser window as a tuple (width, height). Defaults to (1300, 2100).
   - `window_position` (tuple[int, int], optional): The position of the browser window as a tuple (x, y). Defaults to (100, 0).
-- **Returns:** 
+- **Returns:**
   - A tuple containing the WebDriver instance and the WebDriverWait instance for the opened browser window.
 
-## `close_browser()`
+```python
+close_browser()
+```
+
 This method closes the current browser window.
 
 - **Parameters:** None
 - **Returns:** None
 
-## `close_chrome()`
+```python
+close_chrome()
+```
+
 This method closes the main Chrome process.
 
 - **Parameters:** None
 - **Returns:** None
 
-## `take_screenshot()`
+```python
+take_screenshot()
+```
+
 This method takes a screenshot of the current state of the browser and saves it to the specified file path.
 
 - **Parameters:**
   - `file_path` (str): The path to save the screenshot file. The '.png' extension should be added at the source as it is not added in this method.
 - **Returns:** None
 
-## `capture_html()`
+```python
+capture_html()
+```
+
 This method captures the HTML of the current page in the browser. If a filename is provided, it saves the HTML to that file.
 
 - **Parameters:**
   - `filename` (str, optional): The name of the file where the HTML will be saved. If not provided, the HTML is not saved to a file.
-- **Returns:** 
+- **Returns:**
   - The HTML of the current page.
 
 ## Usage
