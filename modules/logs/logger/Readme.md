@@ -53,6 +53,13 @@ The console output is color-coded based on the log level:
 | ERROR    | Red      | 40    |
 | CRITICAL | Bold Red | 50    |
 
+<p><span style="color: blue;">FINE</span>:     This is a fine message</p>
+INFO:     This is an info message
+STEP:     This is a step message
+WARNING:  This is a warning message
+ERROR:    This is an error message
+CRITICAL: This is a critical message
+
 ## File Output Formatting
 
 File logging is set up to rotate logs when they reach 5MB and keep up to 3
