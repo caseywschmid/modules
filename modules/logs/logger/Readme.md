@@ -47,6 +47,10 @@ The console output is color-coded based on the log level:
 
 ![image of terminal styling for logger](logger_image.png)
 
+Setting `DETAILED_CONSOLE_OUTPUT` to `True` will add timestamps, logger names,
+
+![image of detailed terminal styling for logger](detailed_logger_image.png)
+
 | Name     | Color    | Level |
 | -------- | -------- | ----- |
 | DEBUG    | Grey     | 10    |
