@@ -64,10 +64,17 @@ particular file by running `configure_logging(keep_logs=True)`.
 
 ## Usage
 
-Best practice is to set some kind of constant in your main file to set the log
-level. This way you can easily change the log level for all files by changing
-the constant in one place. Files though can be set to a custom log level if you
-choose. To use the configured logger in your Python files:
+You can change the log level of your project by setting the `LOG_LEVEL`
+environment variable to the desired numerical level. The default log level is
+`FINE` (15). I added the `FINE` log level to provide more granularity than the
+standard `INFO` level and I typically use this to log the start of a function so
+I can see the flow of the program I'm working on. You will see this in use in
+the other packages in this repo. If you don't want to see these logs, simply
+change the `LOG_LEVEL` environment variable to `20`.
+
+```python
+
+To use the configured logger in your Python files:
 
 ```python
 import logging
