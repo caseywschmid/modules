@@ -1,11 +1,17 @@
-# Documentation
+# OpenAIHelper Documentation
+
+The `OpenAIHelper` class is a helper module for interacting with the OpenAI API.
+I made this to simplify the process of creating chat completions. I kept all the
+functionality currently in the OpenAI module. 
 
 ## Requirements
 
 This package depends on a custom Logger. To install the Logger package, run the
 following command:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger`
+```terminal
+pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger
+```
 
 Note: You will receive an error if you try to run the OpenAIHelper without first
 installing the Logger package.
@@ -14,30 +20,24 @@ installing the Logger package.
 
 Install the package directly from GitHub:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/openai_helper`
+```terminal
+pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/openai_helper
+```
 
-## OpenAIHelper Class
 
-The `OpenAIHelper` class is a helper module for interacting with the OpenAI API.
-I made this to simplify the process of creating chat completions. I kept all the
-functionality currently in the OpenAI module. 
-
-### Methods
+## Methods
 
 Methods
-#### `__init__()`
+### `__init__()`
 This is the constructor method for the OpenAIHelper class.
 
 - **Parameters:**
   - `api_key` (str): The OpenAI API Key you wish to use.
   - `organization` (str): The organization ID for the OpenAI API.
 
-#### `check_openai_version(self)`
-This method checks the version of the installed OpenAI package and logs a warning if it's different from the version this tool was created with.
-
-
-#### `create_chat_completion()`
+### `create_chat_completion()`
 This method creates a chat completion using the specified parameters and returns the response from the OpenAI API.
+
 - **Parameters:**
   - `prompt` (str): The text prompt to send to the chat completion API.
   - `images` (list): A list of local image paths. These images will be encoded to base64 and included in the chat completion request.
@@ -63,14 +63,15 @@ This method creates a chat completion using the specified parameters and returns
 - **Returns:**
   - The response from the OpenAI API. Returns a dictionary if json_mode is True, otherwise returns a string.
 
-#### `encode_image()`
+### `encode_image()`
 This static method encodes an image to base64.
+
 - **Parameters:**
   - `image_path` (str): The path to the image file.
 - **Returns:**
   - The base64 encoded string of the image.
 
-### Usage
+## Usage
 
 ```python
 from CWS_OpenAIHelper.openai_helper import OpenAIHelper
