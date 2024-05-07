@@ -37,13 +37,13 @@ By default, the logger is configured to:
 
 - Set the log level to `FINE` (15).
 - Output logs to the console with color formatting.
-- Optionally output detailed logs to files (commented out by default).
+- Optionally output detailed logs to files (controlled with `keep_logs` option).
 
 ## Console Output Formatting
 
 The console output is color-coded based on the log level:
 
-![image of terminal styling for logger](image.png)
+![image of terminal styling for logger](logger_image.png)
 
 | Name     | Color    | Level |
 | -------- | -------- | ----- |
