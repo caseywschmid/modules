@@ -2,7 +2,7 @@
 
 The `OpenAIHelper` class is a helper module for interacting with the OpenAI API.
 I made this to simplify the process of creating chat completions. I kept all the
-functionality currently in the OpenAI module. 
+functionality currently in the OpenAI module.
 
 ## Requirements
 
@@ -24,18 +24,22 @@ Install the package directly from GitHub:
 pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/openai_helper
 ```
 
-
 ## Methods
 
-Methods
-### `__init__()`
+```python
+__init__()
+```
+
 This is the constructor method for the OpenAIHelper class.
 
 - **Parameters:**
   - `api_key` (str): The OpenAI API Key you wish to use.
   - `organization` (str): The organization ID for the OpenAI API.
 
-### `create_chat_completion()`
+```python
+create_chat_completion()
+```
+
 This method creates a chat completion using the specified parameters and returns the response from the OpenAI API.
 
 - **Parameters:**
@@ -63,7 +67,10 @@ This method creates a chat completion using the specified parameters and returns
 - **Returns:**
   - The response from the OpenAI API. Returns a dictionary if json_mode is True, otherwise returns a string.
 
-### `encode_image()`
+```python
+encode_image()
+```
+
 This static method encodes an image to base64.
 
 - **Parameters:**

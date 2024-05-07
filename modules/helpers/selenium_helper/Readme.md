@@ -1,4 +1,4 @@
-# SeleniumHelper Class Documentation
+# SeleniumHelper Documentation
 
 The `SeleniumHelper` class is a utility for automating browser tasks using Selenium, PyAutoGUI, and psutil. It provides methods for opening Chrome in different modes, navigating to URLs, logging mouse coordinates, and more.
 

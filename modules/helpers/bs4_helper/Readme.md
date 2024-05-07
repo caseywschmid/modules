@@ -1,30 +1,34 @@
-# Documentation
+# BS4Helper Documentation
+
+The `BS4Helper` class is a utility for fetching and parsing HTML content using
+BeautifulSoup. It provides methods to easily retrieve HTML from a URL and to
+perform searches within the HTML content.
 
 ## Requirements
 
 This package depends on a custom Logger. To install the Logger package, run the
 following command:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger`
+```terminal
+pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger
+```
 
-Note: You will receive an error if you try to run the BS4Helper without first
+Note: You will receive an error if you try to run the OpenAIHelper without first
 installing the Logger package.
 
 ## Installation
 
 Install the package directly from GitHub:
 
-`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/bs4_helper`
+```terminal
+pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/bs4_helper
+```
 
-## BS4Helper Class
+## Methods
 
-The `BS4Helper` class is a utility for fetching and parsing HTML content using
-BeautifulSoup. It provides methods to easily retrieve HTML from a URL and to
-perform searches within the HTML content.
-
-### Methods
-
-#### `get_soup(url)`
+```python
+get_soup(url)
+```
 
 Fetches the HTML content from a specified URL and returns a `BeautifulSoup`
 object for parsing.
@@ -35,7 +39,9 @@ object for parsing.
   - `BeautifulSoup`: A BeautifulSoup object initialized with the fetched HTML
     content.
 
-#### `find_div_with_class_name(class_name)`
+```python
+find_div_with_class_name(class_name)
+```
 
 Finds and returns the first `<div>` element with the specified class name in the
 parsed HTML.
