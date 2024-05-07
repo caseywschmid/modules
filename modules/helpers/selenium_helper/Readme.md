@@ -24,7 +24,10 @@ pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules
 
 # Methods
 
-## `start_coordinate_logging()`
+## 
+```python
+start_coordinate_logging()
+```
 This method logs the current mouse coordinates at specified intervals for a given duration.
 
 - **Parameters:**
@@ -55,7 +58,8 @@ This method opens the specified URL in a new Chrome incognito window with option
   - `debug` (bool, optional): If True, opens the browser in debug mode. Defaults to False.
   - `window_size` (tuple[int, int], optional): The size of the browser window as a tuple (width, height). Defaults to (1300, 2100).
   - `window_position` (tuple[int, int], optional): The position of the browser window as a tuple (x, y). Defaults to (100, 0).
-- **Returns:** A tuple containing the WebDriver instance and the WebDriverWait instance for the opened browser window.
+- **Returns:** 
+  - A tuple containing the WebDriver instance and the WebDriverWait instance for the opened browser window.
 
 ## `close_browser()`
 This method closes the current browser window.
@@ -76,12 +80,13 @@ This method takes a screenshot of the current state of the browser and saves it 
   - `file_path` (str): The path to save the screenshot file. The '.png' extension should be added at the source as it is not added in this method.
 - **Returns:** None
 
-## `capture_html(filename=None)`
+## `capture_html()`
 This method captures the HTML of the current page in the browser. If a filename is provided, it saves the HTML to that file.
 
 - **Parameters:**
   - `filename` (str, optional): The name of the file where the HTML will be saved. If not provided, the HTML is not saved to a file.
-- **Returns:** The HTML of the current page.
+- **Returns:** 
+  - The HTML of the current page.
 
 ## Usage
 
