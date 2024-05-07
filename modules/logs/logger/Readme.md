@@ -38,6 +38,8 @@ By default, the logger is configured to:
 - Set the log level to `FINE` (15).
 - Output logs to the console with color formatting.
 - Optionally output detailed logs to files (controlled with `keep_logs` option).
+- Detailed outputs are turned off by default. You can enable them by adding a
+  `DETAILED_CONSOLE_OUTPUT` environment variable with a value of `True`.
 
 ## Console Output Formatting
 

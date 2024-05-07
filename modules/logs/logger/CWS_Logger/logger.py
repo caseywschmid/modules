@@ -7,8 +7,7 @@ load_dotenv()
 
 
 # Flag to toggle detailed console output
-DETAILED_CONSOLE_OUTPUT = False  # Set to False to disable detailed logs in the console
-
+DETAILED_CONSOLE_OUTPUT = bool(os.getenv("DETAILED_CONSOLE_OUTPUT", False))
 
 # ------------------------------------------------------
 #                 Define the FINE level
