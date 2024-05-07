@@ -43,6 +43,8 @@ By default, the logger is configured to:
 
 The console output is color-coded based on the log level:
 
+![image of terminal styling for logger](image.png)
+
 | Name     | Color    | Level |
 | -------- | -------- | ----- |
 | DEBUG    | Grey     | 10    |
@@ -52,13 +54,6 @@ The console output is color-coded based on the log level:
 | WARNING  | Orange   | 30    |
 | ERROR    | Red      | 40    |
 | CRITICAL | Bold Red | 50    |
-
-<p><span style="color: blue;">FINE</span>:     This is a fine message</p>
-INFO:     This is an info message
-STEP:     This is a step message
-WARNING:  This is a warning message
-ERROR:    This is an error message
-CRITICAL: This is a critical message
 
 ## File Output Formatting
 
