@@ -48,7 +48,7 @@ logging.Logger.step = step
 # ------------------------------------------------------
 #         Define custom log format for terminal
 # ------------------------------------------------------
-class ColorLevelFormatter(logging.Formatter):
+class ConsoleFormatter(logging.Formatter):
     level_formats = {
         logging.DEBUG: "\x1b[38;21mDEBUG\x1b[0m:\t  %(message)s",  # Grey Level
         FINE_LEVEL: "\x1b[34mFINE\x1b[0m:\t  %(message)s",  # Blue Level
@@ -62,7 +62,7 @@ class ColorLevelFormatter(logging.Formatter):
     def format(self, record):
         log_fmt = self.level_formats.get(record.levelno, "%(levelname)s: %(message)s")
         if DETAILED_CONSOLE_OUTPUT:
-            log_fmt += "\t%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)"
+            log_fmt += "\t%(funcName)s - %(name)s - (%(filename)s:%(lineno)d) - %(process)d - %(thread)d - %(asctime)s"
         formatter = logging.Formatter(log_fmt, datefmt="%Y-%m-%d %H:%M:%S")
         return formatter.format(record)
 
@@ -70,7 +70,7 @@ class ColorLevelFormatter(logging.Formatter):
 # ------------------------------------------------------
 #              Define detailed log format
 # ------------------------------------------------------
-class DetailedFormatter(logging.Formatter):
+class LogFileFormatter(logging.Formatter):
     detail_format = (
         "%(asctime)s [%(levelname)s] %(name)s: %(message)s (%(filename)s:%(lineno)d)"
     )
@@ -118,7 +118,7 @@ def configure_logging(logger_name="root", keep_logs=False):
         # Console Handler
         console_handler = logging.StreamHandler()
         console_handler.setLevel(log_level)
-        console_handler.setFormatter(ColorLevelFormatter())
+        console_handler.setFormatter(ConsoleFormatter())
         logger.addHandler(console_handler)
 
         if keep_logs:
@@ -127,7 +127,7 @@ def configure_logging(logger_name="root", keep_logs=False):
                 "logs/logs.log", maxBytes=5 * 1024 * 1024, backupCount=3
             )
             file_handler.setLevel(log_level)
-            file_handler.setFormatter(DetailedFormatter())
+            file_handler.setFormatter(LogFileFormatter())
             logger.addHandler(file_handler)
 
     # Prevent logging from propagating to the root logger
