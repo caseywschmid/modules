@@ -47,7 +47,8 @@ The console output is color-coded based on the log level:
 
 ![image of terminal styling for logger](logger_image.png)
 
-Setting `DETAILED_CONSOLE_OUTPUT` to `True` will add timestamps, logger names,
+Setting `DETAILED_CONSOLE_OUTPUT` to `True` will add filename and line numbers
+along with timestamps:
 
 ![image of detailed terminal styling for logger](detailed_logger_image.png)
 
