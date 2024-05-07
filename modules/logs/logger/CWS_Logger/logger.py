@@ -62,7 +62,7 @@ class ConsoleFormatter(logging.Formatter):
     def format(self, record):
         log_fmt = self.level_formats.get(record.levelno, "%(levelname)s: %(message)s")
         if DETAILED_CONSOLE_OUTPUT:
-            log_fmt += "\t%(funcName)s - %(module)s - %(name)s - (%(filename)s:%(lineno)d) - %(asctime)s"
+            log_fmt += "\t(%(filename)s:%(lineno)d)\t%(asctime)s"
         formatter = logging.Formatter(log_fmt, datefmt="%Y-%m-%d %H:%M:%S")
         return formatter.format(record)
 
