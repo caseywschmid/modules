@@ -1,3 +1,23 @@
+# Documentation
+
+## Requirements
+
+This package depends on a custom Logger. To install the Logger package, run the
+following command:
+
+```terminal
+pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger
+```
+
+Note: You will receive an error if you try to run the OpenAIHelper without first
+installing the Logger package.
+
+## Installation
+
+Install the package directly from GitHub:
+
+`pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/helpers/openai_helper`
+
 ### SeleniumHelper Class
 
 The `SeleniumHelper` class is a utility for automating browser tasks using Selenium, PyAutoGUI, and psutil. It provides methods for opening Chrome in different modes, navigating to URLs, logging mouse coordinates, and more.
