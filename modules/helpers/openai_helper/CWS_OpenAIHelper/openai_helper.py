@@ -16,7 +16,7 @@ except ModuleNotFoundError:
         "The necessary 'Logger' module is not installed. Please install it by running \n'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
     )
 
-logger.configure_logging(__name__, log_level=15)
+logger.configure_logging(__name__)
 log = logging.getLogger(__name__)
 
 if os.getenv("OPENAI_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):

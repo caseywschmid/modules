@@ -4,6 +4,7 @@
 ## BS4 Helper
 
 [0.0.1] - 2024-05-06 - Initial release of BS4Helper class.
+[0.0.2] - 2024-05-10 - Added error handling. Added `find_element_with_id()` method.
 
 ## Open AI Helper
 
@@ -12,6 +13,7 @@
 ## Selenium Helper
 
 [0.0.1] - 2024-05-06 - Initial release of SeleniumHelper class.
+[0.0.2] - 2024-05-10 - Added `open_local_html_file()` method.
 
 # Logs
 

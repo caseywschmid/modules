@@ -5,6 +5,7 @@ import psutil
 import pyautogui
 import os
 from importlib.metadata import version
+from selenium.common.exceptions import WebDriverException
 
 # ------ CONFIGURE LOGGING ------
 import logging
@@ -21,7 +22,7 @@ except ModuleNotFoundError:
         "The necessary 'Logger' module is not installed. Please install it by running \n'pip install git+https://github.com/caseywschmid/modules.git#subdirectory=modules/logs/logger'"
     )
 
-logger.configure_logging(__name__, log_level=15)
+logger.configure_logging(__name__)
 log = logging.getLogger(__name__)
 
 if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
@@ -231,3 +232,18 @@ class SeleniumHelper:
             with open(filename, "w", encoding="utf-8") as f:
                 f.write(html)
         return html
+
+    def open_local_html_file(self, file_path: str):
+        log.fine("Selenium_Helper.open_local_html_file")
+        if self.driver is None:
+            raise ValueError(
+                "Driver not initialized. Please open a browser window first."
+            )
+        try:
+            self.driver.get(f"file://{file_path}")
+        except FileNotFoundError:
+            log.error(f"File not found: {file_path}")
+            raise
+        except WebDriverException as e:
+            log.error(f"WebDriverException occurred: {e}")
+            raise

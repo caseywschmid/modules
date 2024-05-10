@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="CWS_Selenium_Helper",
-    version="0.0.1",
+    version="0.0.2",
     packages=find_packages(),
     author="Casey Schmid",
     author_email="caseywschmid@gmail.com",
