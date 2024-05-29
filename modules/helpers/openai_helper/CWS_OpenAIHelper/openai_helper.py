@@ -74,7 +74,7 @@ class OpenAIHelper:
 
         if not mute_warning and current_openai_version != OPENAI_VERSION:
             log.warning(
-                f"The 'OpenAIHelper' tool was created using openai version {OPENAI_VERSION}. The version you have installed in this project ({current_openai_version}) may not be compatible with this tool. If you encounter any issues, either downgrade your BeautifulSoup version to 4.12.3 or email the creator at caseywschmid@gmail.com to have the package updated."
+                f"The 'OpenAIHelper' tool was created using openai version {OPENAI_VERSION}. The version you have installed in this project ({current_openai_version}) may not be compatible with this tool. If you encounter any issues, either downgrade your OpenAI version to{OPENAI_VERSION} or email the creator at caseywschmid@gmail.com to have the package updated."
             )
             log.info(
                 "This warning can be muted by setting the MUTE_OPENAI_HELPER_WARNING environment variable to 'True'."
