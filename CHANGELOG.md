@@ -10,6 +10,7 @@
 
 [0.0.1] - 2024-05-06 - Initial release of OpenAIHelper class.
 [0.0.2] - 2024-05-29 - Corrected the Version Warning message
+[0.0.3] - 2024-05-31 - Added Local Version of OpenAIHelper
 
 ## Selenium Helper
 
