@@ -1,18 +1,23 @@
 import os
-import time
 import signal
+import time
+from importlib.metadata import version
+from typing import Annotated, NoReturn
+
 import psutil
 import pyautogui
-import os
-from importlib.metadata import version
+from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 # ------ CONFIGURE LOGGING ------
 import logging
 
 try:
     # if running the code from the package itself
-    if os.getenv("OPENAI_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
+    if os.getenv("SELENIUM_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
         from modules.logs.logger.CWS_Logger import logger
     else:
         # if running the code as an imported package in another project
@@ -25,15 +30,6 @@ except ModuleNotFoundError:
 logger.configure_logging(__name__)
 log = logging.getLogger(__name__)
 
-if os.getenv("BS4_HELPER_PACKAGE_TEST", "False").lower() in ("true", "1", "t"):
-    log.info("Running in test mode.")
-
-
-from typing import NoReturn
-from typing import Annotated
-
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 
 SELENIUM_VERSION = "4.20.0"
 PYAUTOGUI_VERSION = "0.9.54"
@@ -41,16 +37,30 @@ PSUTIL_VERSION = "5.9.8"
 
 
 class SeleniumHelper:
-    def __init__(self):
+    def __init__(self, use_remote=False):
         self.driver = None
         self.wait = None
         # Global flag to control the logging loop
         self.is_logging_active = False
+        self.use_remote = use_remote
 
-    def check_dependency_versions(self):
+        if self.use_remote:
+            self.setup_remote_selenium()
+        else:
+            self.setup_local_selenium()
+
+    def check_dependency_versions(self) -> NoReturn:
         current_selenium_version = version("selenium")
         current_pyautogui_version = version("PyAutoGUI")
+        if not current_pyautogui_version:
+            log.warning(
+                "PyAutoGUI is not installed. SeleniumHelper.start_coordinate_logging() will not work."
+            )
         current_psutil_version = version("psutil")
+        if not current_psutil_version:
+            log.warning(
+                "psutil is not installed. SeleniumHelper.close_chrome() will not work."
+            )
         # Check if the warning should be muted
         mute_warning = os.getenv("MUTE_SELENIUM_HELPER_WARNING", "False").lower() in (
             "true",
@@ -75,9 +85,42 @@ class SeleniumHelper:
                 "These warnings can be muted by setting the MUTE_SELENIUM_HELPER_WARNING environment variable to 'True'."
             )
 
+    def setup_remote_selenium(self) -> NoReturn:
+        log.fine("SeleniumHelper.setup_remote_selenium")
+        # This url is for the Selenium Grid running on AWS Kubernetes
+        # See HostedSelenium project for more details
+        selenium_url = os.getenv("HOSTED_SELENIUM_URL", "HOSTED_SELENIUM_URL_NOT_SET")
+        if selenium_url == "HOSTED_SELENIUM_URL_NOT_SET":
+            log.error("You must set the HOSTED_SELENIUM_URL environment variable.")
+            raise ValueError("HOSTED_SELENIUM_URL environment variable not set.")
+
+        log.debug(f"Attempting to connect to Selenium Grid at {selenium_url}")
+
+        options = Options()
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+
+        options.set_capability("browserName", "chrome")
+        options.set_capability("browserVersion", "124.0")
+        options.set_capability("platformName", "linux")
+
+        log.fine(f"Chrome options and capabilities set: {options.to_capabilities()}")
+
+        try:
+            self.driver = webdriver.Remote(
+                command_executor=selenium_url,
+                options=options,
+            )
+            self.wait = WebDriverWait(self.driver, 30)
+            log.debug("Remote WebDriver created successfully")
+        except Exception as e:
+            log.error(f"Failed to create remote WebDriver: {str(e)}")
+            raise
+
     def start_coordinate_logging(
         self, logging_interval: float = 0.5, duration: int = 30
-    ):
+    ) -> NoReturn:
         """
         Logs the current mouse coordinates at specified intervals for a given
         duration.
@@ -97,7 +140,7 @@ class SeleniumHelper:
             time.sleep(logging_interval)
         self.is_logging_active = False
 
-    def open_chrome_in_debug(self):
+    def open_chrome_in_debug(self) -> NoReturn:
         """
         This function opens a new Chrome window in incognito mode. It bypasses
         having to open the Terminal window.
@@ -109,7 +152,7 @@ class SeleniumHelper:
             f"open -na 'Google Chrome' --args --incognito --fresh --remote-debugging-port=9222"
         )
 
-    def open_chrome(self):
+    def open_chrome(self) -> NoReturn:
         """
         This function opens a new Chrome window in incognito mode.
         """
@@ -123,7 +166,7 @@ class SeleniumHelper:
         debug: Annotated[bool, "whether to open the browser in debug mode"] = False,
         window_size: tuple[int, int] = (1300, 2100),
         window_position: tuple[int, int] = (100, 0),
-    ):
+    ) -> tuple[webdriver.Chrome, WebDriverWait]:
         """
         Opens the specified URL in a new Chrome incognito window with optional
         debug mode, zoom level, window size, and window position.
@@ -165,12 +208,12 @@ class SeleniumHelper:
         self.wait = WebDriverWait(self.driver, 5)
         return self.driver, self.wait
 
-    def close_browser(self):
+    def close_browser(self) -> NoReturn:
         log.fine("Selenium_Helper.close_browser")
         if self.driver:
             self.driver.close()
 
-    def close_chrome(self):
+    def close_chrome(self) -> NoReturn:
         """
         Closes the main Chrome process.
 
@@ -221,7 +264,7 @@ class SeleniumHelper:
             )
         self.driver.save_screenshot(f"{file_path}")
 
-    def capture_html(self, filename=None):
+    def capture_html(self, filename=None) -> str:
         log.fine("Selenium_Helper.capture_html")
         if self.driver is None:
             raise ValueError(
@@ -233,7 +276,7 @@ class SeleniumHelper:
                 f.write(html)
         return html
 
-    def open_local_html_file(self, file_path: str):
+    def open_local_html_file(self, file_path: str) -> NoReturn:
         log.fine("Selenium_Helper.open_local_html_file")
         if self.driver is None:
             raise ValueError(
